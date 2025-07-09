@@ -54,7 +54,7 @@ return (
                     <img
                       src={item.product.imageCover}
                       alt={item.product.title}
-                      className="w-12 h-12 object-cover rounded border"
+                      className="w-12 h-12 object-cover rounded "
                     />
                   </td>
                 </tr>

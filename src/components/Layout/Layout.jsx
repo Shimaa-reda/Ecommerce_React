@@ -7,9 +7,9 @@ import { Outlet } from 'react-router-dom'
 export default function Layout() {
 
   return (
-    <div>
+    <div className='min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300'>
       <Navbar/>
-     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto mt-20 ">
+     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto mt-[72px] ">
         <Outlet/>
 
      </div>

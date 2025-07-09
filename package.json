@@ -12,6 +12,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@tailwindcss/vite": "^4.1.10",
+    "@tanstack/react-query": "^5.81.5",
+    "@tanstack/react-query-devtools": "^5.81.5",
     "axios": "^1.10.0",
     "axois": "^0.0.1-security",
     "formik": "^2.4.6",

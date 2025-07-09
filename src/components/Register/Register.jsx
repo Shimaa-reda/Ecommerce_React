@@ -11,7 +11,11 @@ export default function Register() {
   let [loading,setLoading]=useState(false);
   let {setToken}=useContext(authContext)
 
-  
+    useEffect(() => {
+
+    document.title = "Register | My Shop";
+  }, []);
+
   let navigate=useNavigate();
    function handleRegister(values){
     setLoading(true);
@@ -25,7 +29,7 @@ export default function Register() {
        // save token in localStorage
       localStorage.setItem("token",res.data.token)
       // navigate to home (because token returned in signup then go to home , if token not returned go to login to get token)
-      navigate("/")
+      navigate("/login")
       
      }).catch((error)=>{
       console.log(error.response);
@@ -92,20 +96,21 @@ export default function Register() {
   
 
   return (
-    <div>
-      {errorMsg?<div
+    <div className="h-[calc(100vh-80px)] flex justify-center items-center"> 
+      
+      
+      <form
+        action=""
+        onSubmit={formikRegister.handleSubmit}
+        className="w-full max-w-md bg-white shadow-lg rounded-lg p-8"
+      >
+        <h1 className="my-5 text-2xl"> Register Now!</h1>
+        {errorMsg?<div
         class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 text-center"
         role="alert"
       >
        {errorMsg}
       </div>:null}
-      
-      <form
-        action=""
-        onSubmit={formikRegister.handleSubmit}
-        className="w-1/2 mx-auto"
-      >
-        <h1 className="my-5 text-2xl"> Register Now!</h1>
         <div>
           <label
             htmlFor="name"

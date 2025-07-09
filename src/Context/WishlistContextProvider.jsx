@@ -11,11 +11,13 @@ export default function WishlistContextProvider({children}) {
     let [favFlag,setFavFlag]=useState({});
     let {token}=useContext(authContext);
 
+    const [loading, setLoading] = useState(false);
      const updateFlag = (id, status) => {
         setFavFlag((prev) => ({ ...prev, [id]: status }));
   };
 
     async function getWishlist(){
+      setLoading(true)
        await axios.get("https://ecommerce.routemisr.com/api/v1/wishlist",{
             headers:{
                 token
@@ -23,11 +25,14 @@ export default function WishlistContextProvider({children}) {
         }).then((res)=>{
             console.log(res);
             setWishlistItems(res.data.data)
+
             
         }).catch((error)=>{
             console.log(error);
             
-        })
+        }).finally(()=>{
+        setLoading(false)
+    })
 
     }
       
@@ -74,7 +79,7 @@ async function removefromWishlist(id) {
 
 
 
-  return <wishlistContext.Provider value={{favFlag,wishlistItems,addToWishlist,getWishlist,removefromWishlist,toggleWishlist,setWishlistItems}}>
+  return <wishlistContext.Provider value={{favFlag,wishlistItems,loading,addToWishlist,getWishlist,removefromWishlist,toggleWishlist,setWishlistItems}}>
     {children}
   </wishlistContext.Provider>
 }

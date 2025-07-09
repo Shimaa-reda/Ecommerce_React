@@ -9,12 +9,9 @@ import { wishlistContext } from '../../Context/WishlistContextProvider'
 export default function DisplayProducts() {
   let {addToCart}=useContext(cartContext);;
   let {favFlag, toggleWishlist}=useContext(wishlistContext)
-  
-
-
   let [products,setProducts]=useState(null)
   let [Loading,setLoading]=useState(null)
-  let inputRef=useRef()
+  let inputRef=useRef("")
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   async function addTOCartProduct(id){
@@ -65,105 +62,69 @@ export default function DisplayProducts() {
   },[])
 
   if(Loading){
-    return <div className='flex justify-center h-screen items-center'><ClipLoader /></div>
+    return <div className='flex justify-center h-screen items-center'><ClipLoader color="#16a34a" /></div>
   }
 
-  return <>
- <div className=''>
-  
-  
+  return (
+  <>
+    <div className="mb-5">
   <input
     type="text"
     placeholder="Search by product name"
-    className="border border-gray-300 rounded-md px-4 py-2 w-2/3 mx-auto block my-20"
+    className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white rounded-md px-4 py-2 w-2/3 mx-auto block"
     ref={inputRef}
     onInput={searchProducts}
   />
-
- 
 </div>
 
-
-    <div className="parent gap-3 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-
-     {filteredProducts?.map((product) => (
-  <div
-    key={product._id}
-    className="group relative rounded-md overflow-hidden shadow-md p-3 transition duration-300 hover:shadow-green-600"
-  >
-    {/* Product Link */}
-    <Link to={`/productDetails/${product._id}/${product.category.name}`}>
-      <img
-        src={product.imageCover}
-        alt={product.title}
-        className="w-full h-48 object-contain mb-2"
-      />
-
-      <h3 className="text-sm text-green-600 font-semibold">
-        {product.category.name}
-      </h3>
-
-      {/* Title & Heart Row */}
-      <div className="flex justify-between items-center mb-1">
-        <h2 className="text-md font-medium">
-          {product.title.split(" ", 2).join(" ")}
-        </h2>
-
-        {/* Wishlist Heart */}
-        <span
-         
-          className="cursor-pointer text-xl"
-          onClick={async(e)=>{
-            e.preventDefault();
-          await toggleWishlist(product._id);
-          }}
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {products?.map((product) => (
+        <div
+          key={product._id}
+          className="group relative rounded-md overflow-hidden shadow-md p-3 transition duration-300 hover:shadow-green-600 bg-white dark:bg-gray-800 text-black dark:text-white"
         >
-         <i  className={`fa-heart ${
-    favFlag[product._id] ? "fa-solid text-red-500" : "fa-regular text-red-400"
-  }`}
- 
-/>
+          <Link to={`/productDetails/${product._id}/${product.category._id}`}>
+            <img
+              src={product.imageCover}
+              alt={product.title}
+              className="w-full h-48 object-cover rounded-md"
+            />
+            <h3 className="text-sm text-green-600 font-semibold">
+              {product.category.name}
+            </h3>
+            <h2 className="text-md font-medium text-gray-800 dark:text-white">
+              {product.title.split(" ", 2).join(" ")}
+            </h2>
 
-        </span>
-      </div>
+            <div className="flex justify-between mt-1">
+              {product.priceAfterDiscount ? (
+                <>
+                  <h3 className="text-red-600 line-through">
+                    {product.price} EGP
+                  </h3>
+                  <h3 className="text-black dark:text-white">
+                    {product.priceAfterDiscount} EGP
+                  </h3>
+                </>
+              ) : (
+                <h3 className="text-black dark:text-white">{product.price} EGP</h3>
+              )}
+            </div>
+          </Link>
 
-      {/* Price Section */}
-      <div className="flex justify-between items-center text-sm">
-        {product.priceAfterDiscount ? (
-          <>
-            <h3 className="text-red-600 line-through">{product.price} EGP</h3>
-            <h3 className="text-black">{product.priceAfterDiscount} EGP</h3>
-          </>
-        ) : (
-          <h3 className="text-black">{product.price} EGP</h3>
-        )}
-
-        <span className="text-yellow-400">
-          <i className="fa-solid fa-star"></i> {product.ratingsAverage}
-        </span>
-      </div>
-
-      {/* Sale Badge */}
-      {product.priceAfterDiscount && (
-        <span className="absolute top-2 left-2 bg-red-100 text-red-700 text-xs font-medium px-2 py-0.5 rounded">
-          Sale
-        </span>
-      )}
-    </Link>
-
-    {/* Add to Cart Button */}
-    <button
-      onClick={() => addTOCartProduct(product._id)}
-      className="translate-y-[200%] group-hover:translate-y-0 transition-transform duration-300 hover:bg-green-500 hover:text-white border border-green-500 py-1.5 w-full mt-3 rounded-md text-sm"
-    >
-      Add To Cart
-    </button>
-  </div>
-))}
-
-
-
+          <button
+            onClick={() => addTOCartProduct(product._id)}
+            className="translate-y-[200%] group-hover:translate-y-0 transition-transform duration-300 
+              hover:bg-green-500 hover:text-white border border-green-500 
+              bg-white dark:bg-gray-900 text-green-700 dark:text-green-400 
+              py-1.5 w-full mt-3 rounded-md text-sm"
+          >
+            Add To Cart
+          </button>
+        </div>
+      ))}
     </div>
-  
   </>
+);
+
 }

@@ -18,8 +18,13 @@ import Payment from './components/Payment/Payment'
 import AllOrders from './components/AllOrders/AllOrders'
 import Wishlist from './components/Wishlist/Wishlist'
 import WishlistContextProvider from './Context/WishlistContextProvider'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import ResetPasswordFlow from './components/ResetPassword/ResetPassword'
+import ResetPassword from './components/ResetPassword/ResetPassword'
+import ThemeContextProvider from './Context/ThemeContextProvider'
 
-
+let client=new QueryClient();
 
 
 
@@ -41,6 +46,9 @@ export default function App() {
       {path:"brands",element:<ProtectedRoute><Brands/></ProtectedRoute>},
       {path:"categories",element:<ProtectedRoute><Categories/></ProtectedRoute>},
       {path:"login",element:<Login/>},
+      {path:"reset-password",element:<ResetPassword/>},
+      
+
       {path:"register",element:<Register/>},
       {path:"*",element:<NotFoundPage/>},
 
@@ -48,14 +56,22 @@ export default function App() {
   ])
   return <>
  
+ <QueryClientProvider client={client}>
+
+  <ReactQueryDevtools/>
   <AuthContextProvider>
   <CartContextProvider>
     <WishlistContextProvider>
-      <RouterProvider router={router} />
-      <Toaster />
+       <ThemeContextProvider>
+        <RouterProvider router={router} />
+        <Toaster />
+      </ThemeContextProvider>
     </WishlistContextProvider>
   </CartContextProvider>
 </AuthContextProvider>
+
+ </QueryClientProvider>
+  
 
 
  

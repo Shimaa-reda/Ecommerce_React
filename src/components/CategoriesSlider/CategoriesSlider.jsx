@@ -1,36 +1,59 @@
 import React, { useEffect, useState } from 'react'
-import Style from "./CategoriesSlider.module.css"
 import Slider from 'react-slick';
 import axios from 'axios';
+
 export default function CategoriesSlider() {
-  let[categories,setCategories]=useState(null);
-  async function getCategories(){
-    let {data}=await axios.get("https://ecommerce.routemisr.com/api/v1/categories")
-    console.log(data.data);
-    
-    setCategories(data.data)
+  const [categories, setCategories] = useState(null);
+
+  async function getCategories() {
+    let { data } = await axios.get("https://ecommerce.routemisr.com/api/v1/categories");
+    setCategories(data.data);
   }
-  useEffect(()=>{
-    getCategories()
-  },[])
-var settings = {
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 7,
     slidesToScroll: 1,
-    autoplay:true,
-    autoplaySpeed:1000
+    autoplay: true,
+    autoplaySpeed: 1000,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024, // medium screens
+        settings: {
+          slidesToShow: 4,
+        }
+      },
+      {
+        breakpoint: 640, // small screens
+        settings: {
+          slidesToShow: 1,
+        }
+      }
+    ]
   };
+
   return (
-    <div>
-       <Slider {...settings} className='my-10'>
-        {categories?.map((category)=><div key={category._id}>
-            <img src={category.image} alt={category.name} className='w-100 h-[200px] object-cover' />
-        </div>)}
-      
-     
-    </Slider>
+    <div className="my-10">
+      <Slider {...settings}>
+        {categories?.map((category) => (
+          <div key={category._id} className="px-2 text-center">
+            <img
+              src={category.image}
+              alt={category.name}
+              className='w-full h-[200px] object-cover rounded'
+            />
+            
+            <p className="mt-2 text-xl font-medium block dark:text-white ">{category.name}</p>
+          </div>
+        ))}
+      </Slider>
     </div>
-  )
+  );
 }
