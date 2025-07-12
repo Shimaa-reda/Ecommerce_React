@@ -47,13 +47,13 @@ export default function Cart() {
   }
 
   return (
-    <>
+    <div className='pt-[42px]'>
     {/* <Helmet><title>Cart</title></Helmet> */}
 
       {products?.length > 0 ? (
         <>
           {/* Summary for md screens only */}
-          <div className="hidden md:flex lg:hidden justify-between items-center bg-white rounded-md shadow p-4 mx-4 my-4">
+          <div className="hidden md:flex lg:hidden justify-between items-center bg-white rounded-md shadow p-4 mx-4 my-4 ">
             <div className="space-y-1">
               <p className="text-sm text-gray-700">🛒 Items: <strong>{numOfCart}</strong></p>
               <p className="text-sm text-gray-700">💰 Price: <strong>{totalPrice} EGP</strong></p>
@@ -118,10 +118,10 @@ export default function Cart() {
             </div>
 
             {/* Cart Summary for large screens */}
-            <div className="hidden lg:flex w-1/4 bg-white rounded-lg shadow-md p-4 flex-col justify-between h-fit mt-4 lg:mt-0">
-              <h3 className="text-xl font-semibold mb-4 text-gray-700">Cart Summary</h3>
-              <p className="text-gray-700 mb-2">🛒 Items: <strong>{numOfCart}</strong></p>
-              <p className="text-gray-700 mb-4">💰 Total: <strong>{totalPrice} EGP</strong></p>
+            <div className="hidden lg:flex w-1/4 bg-white rounded-lg shadow-md p-4 flex-col justify-between h-fit mt-4 lg:mt-0 dark:bg-gray-700 dark:text-white">
+              <h3 className="text-xl font-semibold mb-4 text-gray-700 dark:text-white ">Cart Summary</h3>
+              <p className="text-gray-700 mb-2 dark:text-white">🛒 Items: <strong>{numOfCart}</strong></p>
+              <p className="text-gray-700 mb-4 dark:text-white">💰 Total: <strong>{totalPrice} EGP</strong></p>
               <Link to="/payment" className="text-white bg-green-600 hover:bg-green-700 font-medium rounded-md text-sm px-4 py-2 text-center mb-3">
                 Checkout
               </Link>
@@ -133,8 +133,8 @@ export default function Cart() {
 
           {/* Mobile View */}
           <div className="block md:hidden space-y-4 mt-6">
-            <div className="flex flex-col items-center justify-center bg-white p-4 w-11/12 mx-auto rounded-md shadow">
-              <div className="flex justify-between w-full mb-3 text-sm text-gray-800 font-medium">
+            <div className="flex flex-col items-center justify-center bg-white p-4 w-11/12 mx-auto rounded-md shadow dark:bg-gray-700 dark:text-white">
+              <div className="flex justify-between w-full mb-3 text-sm text-gray-800 font-medium dark:text-white">
                 <span>🛒 Products: <strong>{numOfCart}</strong></span>
                 <span>💰 Total: <strong>{totalPrice} EGP</strong></span>
               </div>
@@ -149,10 +149,10 @@ export default function Cart() {
             </div>
 
             {products.map((product) => (
-              <div key={product.product._id} className="bg-white rounded-lg shadow p-4 flex flex-col gap-2 w-11/12 max-w-sm mx-auto">
-                <img src={product.product.imageCover} alt={product.product.title} className="w-full h-auto rounded-md" />
+              <div key={product.product._id} className="bg-white rounded-lg shadow p-4 flex flex-col gap-2 w-11/12 max-w-sm mx-auto dark:bg-gray-700 dark:text-white">
+                <img src={product.product.imageCover} alt={product.product.title} className="w-full h-auto rounded-md dark:text-white" />
                 <h3 className="text-lg font-semibold">{product.product.title}</h3>
-                <p className="text-sm text-gray-600">{product.price} EGP</p>
+                <p className="text-sm text-gray-600 dark:text-white">{product.price} EGP</p>
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <button onClick={() => updateQuantity(product.product._id, product.count - 1)} className="h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full flex items-center justify-center">-</button>
@@ -168,10 +168,10 @@ export default function Cart() {
           </div>
         </>
       ) : (
-        <div className="h-[465px] flex items-center justify-center">
+        <div className="h-[465px] flex items-center justify-center dark:text-white">
           Your Cart is Empty
         </div>
       )}
-    </>
+    </div>
   );
 }

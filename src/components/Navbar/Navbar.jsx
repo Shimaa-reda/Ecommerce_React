@@ -23,13 +23,18 @@ export default function Navbar() {
   }, [token]);
 
   return (
-    <nav className='bg-gray-50 dark:bg-gray-900 text-black dark:text-white py-4 w-full z-50 fixed top-0 left-0 shadow-md'>
+    <nav className='bg-gray-50 dark:bg-gray-900 text-black dark:text-white py-6 w-full z-50 fixed top-0 left-0 shadow-md'>
       <div className="container px-2 sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto flex items-center justify-between">
 
         {/* Logo */}
-        <Link to="/">
-          <img src={logo} alt="logo" className="h-10" />
-        </Link>
+       <Link
+  to="/"
+  className="dark:text-gray-50 flex items-center gap-2 text-2xl font-bold whitespace-nowrap"
+>
+  <i className="fas fa-shopping-cart text-green-700 dark:text-white text-xl"></i>
+  <span>Fresh Cart</span>
+</Link>
+
 
         {/* Toggle button */}
         <button

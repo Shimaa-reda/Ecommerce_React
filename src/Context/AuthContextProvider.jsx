@@ -16,9 +16,10 @@ export default function AuthContextProvider({children}) {
           token
         }
       }).then((res)=>{
-        console.log("id using Api verify token",res.decoded.id);
-        setidUser(res.decoded.id)
+        console.log("id using Api verify token",res.data.decoded.id);
         
+        setidUser(res.data.decoded.id)
+        localStorage.setItem("id", res.data.decoded.id); 
       }).catch((error)=>{
         console.log(error);
         
@@ -31,6 +32,12 @@ export default function AuthContextProvider({children}) {
     //         setToken(localStorage.getItem("token"))
     //     }
     // },[])
+    useEffect(() => {
+  if (token) {
+    decodeToken(token);
+  }
+}, [token]);
+
   return <authContext.Provider value={{token,setToken,idUser,setidUser,decodeToken}}>
     {/* children */}
     {children}

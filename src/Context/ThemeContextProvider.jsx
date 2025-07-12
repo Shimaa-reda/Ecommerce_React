@@ -6,6 +6,7 @@ export default function ThemeContextProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
+  
 
   useEffect(() => {
     if (isDarkMode) {

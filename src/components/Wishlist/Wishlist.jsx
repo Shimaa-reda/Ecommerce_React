@@ -34,13 +34,13 @@ export default function Wishlist() {
   }
 
   return (
-   <>
+   <div className='pt-5'>
    {/* <Helmet><title>Wishlists</title></Helmet> */}
 
   {wishlistItems?.length > 0 ? (
     <>
       {/* Large Screens Table (lg and above) */}
-      <div className="hidden lg:block relative overflow-x-auto shadow-md sm:rounded-lg pt-20">
+      <div className="hidden lg:block relative overflow-x-auto shadow-md sm:rounded-lg ">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -173,7 +173,7 @@ export default function Wishlist() {
       Your Wishlist is Empty
     </div>
   )}
-</>
+</div>
 
   );
 }
